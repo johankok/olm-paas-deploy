@@ -1,0 +1,47 @@
+name: "Image: Build and push to registry"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'img-crypttool/**'
+      - '.github/workflows/build-and-push-image.yml'
+
+jobs:
+  build:
+    name: Build image and publish to registry
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE_NAME: img-crypttool
+      REGISTRY: ghcr.io/johankok
+
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+    - name: Buildah Action
+      id: build-image
+      uses: redhat-actions/buildah-build@7a95fa7ee0f02d552a32753e7414641a04307056 # v2
+      with:
+        image: ${{ env.IMAGE_NAME }}
+        tags: latest ${{ github.sha }} ${{ github.ref_name }}
+        context: img-crypttool
+        containerfiles: |
+          img-crypttool/Containerfile
+
+    - name: Log in to the GitHub Container registry
+      uses: redhat-actions/podman-login@4934294ad0449894bcd1e9f191899d7292469603 # v1
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push to GitHub Container Repository
+      id: push-to-ghcr
+      uses: redhat-actions/push-to-registry@5ed88d269cf581ea9ef6dd6806d01562096bee9c # v2
+      with:
+        image: ${{ steps.build-image.outputs.image }}
+        tags: ${{ steps.build-image.outputs.tags }}
+        registry: ${{ env.REGISTRY }}
