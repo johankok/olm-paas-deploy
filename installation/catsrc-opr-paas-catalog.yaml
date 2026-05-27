@@ -6,6 +6,6 @@ metadata:
   namespace: openshift-marketplace
 spec:
   displayName: opr-paas catalog
-  image: ghcr.io/belastingdienst/opr-paas-catalog:stable
+  image: ghcr.io/belastingdienst/opr-paas-catalog:latest
   publisher: Belastingdienst
   sourceType: grpc
