@@ -10,3 +10,12 @@ spec:
   name: opr-paas
   source: opr-paas-catalog
   sourceNamespace: openshift-marketplace
+  config:
+    env:
+      - name: ARGOCD_PLUGIN_GENERATOR_BIND_ADDRESS
+        value: ":4355"
+      - name: ARGOCD_GENERATOR_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: argocd-generator-token
+            key: ARGOCD_GENERATOR_TOKEN

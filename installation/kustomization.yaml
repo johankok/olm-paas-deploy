@@ -6,4 +6,5 @@ resources:
   - catsrc_opr-paas-catalog.yaml
   - ns_paas-system.yaml
   - og_paas-system.yaml
+  - s_argocd-generator-token.yaml
   - sub_opr-paas.yaml
