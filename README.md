@@ -22,11 +22,12 @@ watch oc get subscriptions,clusterserviceversions,installplans -n paas-system
 
 ## Create a secret keypair
 
-* Download the latest release of [opr-paas-crypttool](https://github.com/belastingdienst/opr-paas-crypttool).
+* Download the latest release of [opr-paas-cli](https://github.com/belastingdienst/opr-paas-cli).
+* Install it as a `oc` plugin, by moving it into `/usr/local/bin`
 * Generate a public key and a private key to be used by the operator:
 
 ```bash
-./crypttool generate --privateKeyFile opr-paas.key --publicKeyFile opr-paas.pub
+oc paas generate --privateKeyFile opr-paas.key --publicKeyFile opr-paas.pub
 Private key written to opr-paas.key
 Public key written to opr-paas.pub
 ```
