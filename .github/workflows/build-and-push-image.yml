@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'img-crypttool/**'
+      - 'img-opr-paas-cli/**'
       - '.github/workflows/build-and-push-image.yml'
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       contents: read
       packages: write
     env:
-      IMAGE_NAME: img-crypttool
+      IMAGE_NAME: img-opr-paas-cli
       REGISTRY: ghcr.io/johankok
 
     steps:
@@ -27,9 +27,9 @@ jobs:
       with:
         image: ${{ env.IMAGE_NAME }}
         tags: latest ${{ github.sha }} ${{ github.ref_name }}
-        context: img-crypttool
+        context: img-opr-paas-cli
         containerfiles: |
-          img-crypttool/Containerfile
+          img-opr-paas-cli/Containerfile
 
     - name: Log in to the GitHub Container registry
       uses: redhat-actions/podman-login@4934294ad0449894bcd1e9f191899d7292469603 # v1
