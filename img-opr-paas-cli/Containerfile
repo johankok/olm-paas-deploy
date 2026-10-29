@@ -1,11 +1,11 @@
-FROM registry.access.redhat.com/ubi9-minimal@sha256:e5161a7d7d99cf22e4f34b72e111211a399d956d9b0e8714da18e9c4c8151041 AS build
+FROM registry.access.redhat.com/ubi9-minimal@sha256:bba2b4bbf0ed15cfe7dd72a1e17ae7d2015a141f306b304e1a2785c41400e39c AS build
 
 RUN microdnf install -y gzip tar && microdnf clean all
 
 ADD bin/download-tools.sh .
 RUN ./download-tools.sh
 
-FROM registry.access.redhat.com/ubi9-minimal@sha256:e5161a7d7d99cf22e4f34b72e111211a399d956d9b0e8714da18e9c4c8151041
+FROM registry.access.redhat.com/ubi9-minimal@sha256:bba2b4bbf0ed15cfe7dd72a1e17ae7d2015a141f306b304e1a2785c41400e39c
 
 LABEL org.opencontainers.image.source="https://github.com/johankok/olm-paas-deploy" \
       org.opencontainers.image.description="Getting started with installing opr-paas on a vanilla OpenShift cluster"
